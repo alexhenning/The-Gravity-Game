@@ -1,0 +1,19 @@
+Gravity game
+#+AUTHOR:    Alex Henning
+#+EMAIL:     elcron@gmail.com
+#+DATE:      2010-10-05 Tue
+#+OPTIONS:   H:3 num:nil toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:nil skip:nil d:nil todo:t pri:nil tags:not-in-toc
+
+* Introduction
+In this game, you are a sad little asteroid out in the big bad galaxy. Your goal is to avoid crashing as long as possible, however, the galaxy is out to get you! The longer you last, the more asteroids are trying to hit you. How long can you last?
+
+* About
+I wrote this game back in 2009 in two days, while in New Orleans for FIRST robotics. It was the product of a mixture of boredom and curiosity. I'm putting it online now because a few people have been asking for it.
+
+* Installation
+1. Install [[http://www.python.org/download/][python 2.7]].
+2. Install [[http://www.pygame.org/download.shtml][pygame 1.91 for python 2.6]].
+3. Download and extract the source for the gravity game.
+4. Double click "game.pyw"
+5. Play!

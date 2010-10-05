@@ -1,0 +1,74 @@
+
+import pygame, math, random
+
+def dist(p1, p2): return math.floor(math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2))
+
+def applyForces(mover, puller):
+    mover.x_force -= ((mover.coord[0] - puller.coord[0]) / 1000.0) * (puller.rad/float(mover.rad))
+    mover.y_force -= ((mover.coord[1] - puller.coord[1]) / 1000.0) * (puller.rad/float(mover.rad))
+
+class GravityWell:
+    def __init__(self, coord, rad, color=(200, 25, 25)):
+        self.coord = coord
+        self.rad = rad
+        self.x_force = 0
+        self.y_force = 0
+        self.color = color
+    def setForces(self, objects):
+        for i in objects:
+            applyForces(self, i)
+    def applyForces(self, circles, rects):
+        if self.x_force > 0: self.x_force = min([self.x_force, 20])
+        else: self.x_force = max([self.x_force, -20])
+        if self.y_force > 0: self.y_force = min([self.y_force, 20])
+        else: self.y_force = max([self.y_force, -20])
+        #self.coord[0] += self.x_force
+        #self.coord[1] += self.y_force
+        #print self.x_force, self.y_force, self.coord
+
+        # world
+        if self.coord[0] - self.rad < 0:
+            self.x_force = abs(self.x_force)
+            self.coord[0] = 0
+        elif self.coord[0] + self.rad > 800:
+            self.x_force = -abs(self.x_force)
+            self.coord[0] = 800
+        if self.coord[1] - self.rad < 0:
+            self.y_force = abs(self.y_force)
+            self.coord[1] = 0
+        elif self.coord[1] + self.rad > 600:
+            self.y_force = -abs(self.y_force)
+            self.coord[1] = 600
+
+        # circles
+        for circle in circles:
+            #if not circle == self: print not collision and dist(self.coord, circle.coord) < self.rad + circle.rad, not collision, dist(self.coord, circle.coord), self.rad + circle.rad
+            if not circle == self and \
+               dist(self.coord, circle.coord) < self.rad + circle.rad:
+                self.x_force = -self.x_force
+                self.y_force = -self.y_force
+        # rects
+        for rect in rects:
+            if self.inRect(rect):
+                #self.x_force = -self.x_force
+                #self.y_force = -self.y_force
+                if self.coord[0] < rect.centerx:
+                    self.x_force = -abs(self.x_force)
+                else:
+                    self.x_force = abs(self.x_force)
+                if self.coord[1] < rect.centery:
+                    self.y_force = -abs(self.y_force)
+                else:
+                    self.y_force = abs(self.y_force)
+        self.coord[0] += self.x_force
+        self.coord[1] += self.y_force
+        
+    def contains(self, p):
+        return dist(self.coord, p) < self.rad
+    def inRect(self, rect):
+        #print rect.left < self.coord[0], self.coord[0] < rect.right, rect.top < self.coord[1], self.coord[1] < rect.bottom
+        return rect.left < self.coord[0] and self.coord[0] < rect.right and \
+               rect.top < self.coord[1] and self.coord[1] < rect.bottom
+    def draw(self, screen):
+        pygame.draw.circle(screen, self.color, tuple(self.coord), self.rad)
+    

@@ -1,0 +1,10 @@
+Plan:
+
+arrow thrusters
+gravity wells
+avoid objects
+
+
+time levels (5 secs)
+test object pull
+test move strength
