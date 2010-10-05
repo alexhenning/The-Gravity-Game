@@ -14,6 +14,6 @@ I wrote this game back in 2009 in two days, while in New Orleans for FIRST robot
 * Installation
 1. Install [[http://www.python.org/download/][python 2.7]].
 2. Install [[http://www.pygame.org/download.shtml][pygame 1.91 for python 2.6]].
-3. Download and extract the source for the gravity game.
+3. Download and extract the source for [[http://github.com/alexhenning/The-Gravity-Game/zipball/master][the gravity game]].
 4. Double click "game.pyw"
 5. Play!
